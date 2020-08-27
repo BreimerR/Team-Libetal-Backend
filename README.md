@@ -81,6 +81,7 @@ This is a simple app used to share files across all platforms and it is develope
 	    - IP Search
 	- Notifications
     - Recent transfers feature.
+    
 ##### On the platform 
 By default, the software proposer on initialization will own 100% of the total destruction shared. 
 And a fixed 20-30% or X%(TBD) share i.e and leaving 70-80% share to contributions.
@@ -99,7 +100,6 @@ From this with monthly income from the total sales of the product.
 Finances have to be divided and distributed to the said participants.
 
 ## Milestones
-
 - #### Contribution Analise
 >Analyzing how contributions will be earned is quite tricky. What metrics will be used
  performance/language used/ code complexity etc?
