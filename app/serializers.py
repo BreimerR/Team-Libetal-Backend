@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import UserProfile, Skill, Project, Commit
+from .models import UserProfile, Skill, Project, Commit, FeaturePost
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -47,3 +47,14 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = ('address', 'payment', 'git_auth_token', 'price_per_hour',
                   'project', 'commits', 'licence_agreement', 'skills_list',)
+
+
+class FeaturePostSerializer(serializers.ModelSerializer):
+    proposed_by = UserSerializer(many=False)
+    project = ProjectMiniSerializer(many=False)
+
+    class Meta:
+
+        model = FeaturePost
+        fields = ('name', 'description', 'cost',
+                  'time_line', 'project', 'proposed_by',)

@@ -102,13 +102,14 @@ class UserProfile(models.Model):
 
 
 class FeaturePost(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, null=True)
     commit = models.ForeignKey(Commit, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     description = models.TextField()
     cost = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     time_line = models.IntegerField()
     licence_agreement = models.OneToOneField(License, on_delete=models.CASCADE)
-    proposed_by = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    proposed_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
