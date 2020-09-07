@@ -47,6 +47,12 @@ class Skill(models.Model):
         max_length=12, choices=SKILL_EXPERIENCE)
     years_of_experience = models.IntegerField()
 
+    def __str__(self):
+        return self.skill_name
+
+    def __str__(self):
+        return self.project_name
+
 
 class Project(models.Model):
     project_name = models.CharField(max_length=50)
@@ -54,11 +60,22 @@ class Project(models.Model):
     project_url = models.URLField()
     accessibility = models.CharField(
         max_length=10, choices=PROJECT_ACCESSIBILITY_TYPE)
+    users = models.ManyToManyField(User, blank=True)
+
+    def __str__(self):
+        return self.project_name
 
 
 class Commit(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.ForeignKey(
+        Project, on_delete=models.PROTECT, null=True, related_name="commits")
     commit_name = models.CharField(max_length=256)
+    commit_description = models.TextField(blank=True)
+    user = models.ForeignKey(
+        User, related_name='users', on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return self.commit_name
 
 
 class License(models.Model):
@@ -80,6 +97,9 @@ class UserProfile(models.Model):
     commits = models.ManyToManyField(Commit)
     licence_agreement = models.OneToOneField(License, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.user.username
+
 
 class FeaturePost(models.Model):
     commit = models.ForeignKey(Commit, on_delete=models.CASCADE)
@@ -89,3 +109,6 @@ class FeaturePost(models.Model):
     time_line = models.IntegerField()
     licence_agreement = models.OneToOneField(License, on_delete=models.CASCADE)
     proposed_by = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
